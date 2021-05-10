@@ -33,9 +33,15 @@ export default {
 <style scoped>
 .hamburger {
   display: inline-block;
+<<<<<<< HEAD
   width: 20px;
   height: 20px;
   vertical-align: middle;
+=======
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
 }
 
 .hamburger.is-active {

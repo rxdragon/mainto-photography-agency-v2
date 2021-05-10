@@ -1,12 +1,18 @@
 <template>
+<<<<<<< HEAD
   <div id="App">
     <transition name="app-transform" mode="out-in">
       <router-view />
     </transition>
+=======
+  <div id="app">
+    <router-view />
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import variables from '@assetsDir/styles/variables.less'
 
 export default {
@@ -44,3 +50,9 @@ body {
   overflow: hidden;
 }
 </style>
+=======
+export default {
+  name: 'App'
+}
+</script>
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6

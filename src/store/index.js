@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
+<<<<<<< HEAD
 
 Vue.use(Vuex)
 
@@ -18,6 +19,22 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
 const store = new Vuex.Store({
   modules,
+=======
+import app from './modules/app'
+import permission from './modules/permission'
+import settings from './modules/settings'
+import user from './modules/user'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  modules: {
+    app,
+    permission,
+    settings,
+    user
+  },
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
   getters
 })
 

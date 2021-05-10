@@ -1,5 +1,9 @@
 import base from '../config'
+<<<<<<< HEAD
 import axios from '@/plugins/axios.js'
+=======
+import axios from '@/axios/index'
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
 
 const work = {
   list (params) {

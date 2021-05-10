@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <section
     v-loading.lock="isLoading"
     element-loading-custom-class="main-loading"
@@ -15,11 +16,17 @@
       <keep-alive :include="cachedViews" exclude="" :max="4">
         <router-view :key="key" />
       </keep-alive>
+=======
+  <section class="app-main">
+    <transition name="fade-transform" mode="out-in">
+      <router-view :key="key" />
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
     </transition>
   </section>
 </template>
 
 <script>
+<<<<<<< HEAD
 import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
@@ -52,11 +59,19 @@ export default {
       } else {
         document.body.style.setProperty('--boxShadow', '')
       }
+=======
+export default {
+  name: 'AppMain',
+  computed: {
+    key () {
+      return this.$route.path
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
     }
   }
 }
 </script>
 
+<<<<<<< HEAD
 <style lang="less" scoped>
 @import "~@assetsDir/styles/variables.less";
 
@@ -92,18 +107,34 @@ export default {
 }
 
 .fixed-header + .app-main {
+=======
+<style scoped>
+.app-main {
+  /*50 = navbar  */
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.fixed-header+.app-main {
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
   padding-top: 50px;
 }
 </style>
 
+<<<<<<< HEAD
 <style lang="less">
 @import "~@assetsDir/styles/variables.less";
+=======
+<style lang="scss">
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
 // fix css style bug in open el-dialog
 .el-popup-parent--hidden {
   .fixed-header {
     padding-right: 15px;
   }
 }
+<<<<<<< HEAD
 
 .overhidden {
   overflow: hidden !important;
@@ -115,4 +146,6 @@ export default {
   left: @sideBarWidth !important;
   width: calc(~'100vw - @{sideBarWidth}');
 }
+=======
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
 </style>

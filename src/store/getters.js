@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const defaultGetters = {
   permission_routes: state => state.permission.routes,
   personage_routers: state => state.permission.personageRouters, // 个人有的路由
@@ -22,4 +23,17 @@ const getters = {
   ...userGetters
 }
 
+=======
+const getters = {
+  sidebar: state => state.app.sidebar,
+  device: state => state.app.device,
+  getuser: state => state.user.user,
+  getSteamId: state => state.user.steamid,
+  token: state => state.user.token,
+  avatar: state => state.user.avatar,
+  name: state => state.user.name,
+  roles: state => state.user.roles,
+  permission_routes: state => state.permission.routes
+}
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
 export default getters

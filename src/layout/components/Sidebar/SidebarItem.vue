@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div v-if="!item.hidden" class="menu-wrapper">
     <!-- 单个菜单 -->
     <template v-if="showSingleMenu">
@@ -18,6 +19,18 @@
       :index="resolvePath(item.path)"
       popper-append-to-body
     >
+=======
+  <div v-if="!item.hidden">
+    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
+          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
+        </el-menu-item>
+      </app-link>
+    </template>
+
+    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
       <template slot="title">
         <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
       </template>
@@ -35,13 +48,24 @@
 
 <script>
 import path from 'path'
+<<<<<<< HEAD
 import { isExternal } from '@/utils/validate' // 是否是网址
 import Item from './Item' // 内容组件
 import AppLink from './Link' // 链接跳转
+=======
+import { isExternal } from '@/utils/validate'
+import Item from './Item'
+import AppLink from './Link'
+import FixiOSBug from './FixiOSBug'
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
 
 export default {
   name: 'SidebarItem',
   components: { Item, AppLink },
+<<<<<<< HEAD
+=======
+  mixins: [FixiOSBug],
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
   props: {
     // route object
     item: {
@@ -58,6 +82,7 @@ export default {
     }
   },
   data () {
+<<<<<<< HEAD
     this.onlyOneChild = null
     return {}
   },
@@ -72,11 +97,23 @@ export default {
     /**
      * @description 只有一个列表显示
      */
+=======
+    // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
+    // TODO: refactor with render function
+    this.onlyOneChild = null
+    return {}
+  },
+  methods: {
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
     hasOneShowingChild (children = [], parent) {
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false
         } else {
+<<<<<<< HEAD
+=======
+          // Temp set(will be used if only has one showing child)
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
           this.onlyOneChild = item
           return true
         }
@@ -89,15 +126,22 @@ export default {
 
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
+<<<<<<< HEAD
         this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
+=======
+        this.onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
         return true
       }
 
       return false
     },
+<<<<<<< HEAD
     /**
      * @description 决定跳转路径
      */
+=======
+>>>>>>> e3633d95afd5e894053241692fe8a95f8b70f9e6
     resolvePath (routePath) {
       if (isExternal(routePath)) {
         return routePath
