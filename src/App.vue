@@ -1,0 +1,72 @@
+<template>
+  <div id="app">
+    <el-container v-if="getUser.id">
+      <Sider />
+      <el-container>
+        <el-header height="128px">
+          <Header/>
+        </el-header>
+        <el-main>
+          <router-view @loading="sendLoding" />
+        </el-main>
+      </el-container>
+    </el-container>
+    <Welcome v-else/>
+  </div>
+</template>
+
+<script>
+import Header from '@/layout/Header.vue'
+import Sider from '@/layout/Sider.vue'
+import { mapActions, mapGetters } from 'vuex'
+import Welcome from '@/views/welcome/index.vue'
+export default {
+  name: 'app',
+  components: { Header, Sider, Welcome },
+  computed: {
+    ...mapGetters(['getUser'])
+  },
+  async created () {
+    if (this.getUser.id) {
+      await this.initUpyun().then().catch((e) => {
+        this.$message.error(e.data.error_msg)
+      })
+    }
+  },
+  methods: {
+    ...mapActions(['initUpyun', 'initHost']),
+    sendLoding (state) {
+      this.loading = state
+    },
+    collapsedHandle (type) {
+      this.collapsed = type
+    }
+  }
+}
+</script>
+
+<style lang="less">
+html {
+  background-color: #f0f2f5;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.el-container {
+  height: 100%;
+
+  .el-header {
+    padding: 0;
+    margin: 0;
+  }
+}
+</style>
