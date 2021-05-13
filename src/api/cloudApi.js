@@ -1,5 +1,5 @@
 import axios from '@/plugins/axios'
-import * as SessionTool from '@/util/sessionTool'
+import * as SessionTool from '@/utils/sessionTool'
 
 export const PRODUCT_TYPE = {
   BLUE: 'blue', // 蓝标

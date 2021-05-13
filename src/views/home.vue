@@ -19,7 +19,7 @@ export default {
 <style scoped lang="less">
 .full-page {
   position: absolute;
-  top: 64px;
+  top: 128px;
   right: 0;
   bottom: 0;
   left: 256px;

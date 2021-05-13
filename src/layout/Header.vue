@@ -173,7 +173,7 @@ export default {
     height: 64px;
 
     h3 {
-      margin: 17px 0;
+      margin: 23px 0;
     }
 
     .title {

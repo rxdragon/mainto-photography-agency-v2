@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <el-container v-if="getUser.id">
-      <Sider />
+      <Sider :collapsed="collapsed"/>
       <el-container>
         <el-header height="128px">
-          <Header/>
+          <Header @collapsedEvent="collapsedHandle"/>
         </el-header>
         <el-main>
           <router-view @loading="sendLoding" />
@@ -23,6 +23,12 @@ import Welcome from '@/views/welcome/index.vue'
 export default {
   name: 'app',
   components: { Header, Sider, Welcome },
+  data () {
+    return {
+      loading: false,
+      collapsed: false
+    }
+  },
   computed: {
     ...mapGetters(['getUser'])
   },
@@ -67,6 +73,11 @@ body {
   .el-header {
     padding: 0;
     margin: 0;
+  }
+
+  .el-main {
+    min-width: 1080px;
+    background-color: rgb(247, 247, 247);
   }
 }
 </style>

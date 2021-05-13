@@ -1,75 +1,48 @@
 <template>
-  <el-asider :class="true ? 'hide-sider' : 'sider'">
+  <el-aside :class="collapsed ? 'hide-sider' : 'sider'">
     <el-scrollbar>
       <p class="wrap">
-        <img v-if="!true" :src="logo">
+        <img v-if="!collapsed" :src="logo">
         <img v-else class="single-photo" :src="singleLogo">
       </p>
       <el-menu
-        :collapse="true"
+        router
+        :collapse="collapsed"
         default-active="2"
         background-color="#001529"
         text-color="rgba(255, 255, 255, 0.65)"
         active-text-color="#409EFF"
       >
-        <el-submenu index="1">
+        <el-submenu index="work">
           <template slot="title">
             <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <span>照片上传</span>
           </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
+          <el-menu-item index="work">上传拍摄</el-menu-item>
+          <el-menu-item index="workRecord">上传历史记录</el-menu-item>
         </el-submenu>
-        <el-menu-item index="2">
+        <el-menu-item v-if="getUser.level === 'master'" index="product">
           <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
+          <span slot="title">产品管理</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="customs">
           <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
+          <span slot="title">客片中心</span>
         </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
+        <el-submenu v-if="getUser.level === 'master'" index="manage">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>管理中心</span>
+          </template>
+          <el-menu-item index="manage">子账号管理</el-menu-item>
+        </el-submenu>
       </el-menu>
     </el-scrollbar>
-  </el-asider>
+  </el-aside>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-const RouteConfig = [{
-  path: ['manage', 'manageAccount'],
-  selectedKeys: ['account'],
-  openKeys: ['manage']
-}, {
-  path: ['workRecord', 'recordDetail'],
-  selectedKeys: ['record'],
-  openKeys: ['work']
-}, {
-  path: ['work'],
-  selectedKeys: ['upload'],
-  openKeys: ['work']
-}, {
-  path: ['product', 'addProduct', 'productDetail'],
-  selectedKeys: ['product'],
-  openKeys: []
-}, {
-  path: ['customs', 'customDetail'],
-  selectedKeys: ['customs'],
-  openKeys: []
-}]
 export default {
   name: 'Sider',
   props: {
@@ -78,36 +51,19 @@ export default {
   data () {
     return {
       logo: require('@/assets/img/logo.png'),
-      singleLogo: require('@/assets/img/single-logo.png'),
-      selectedKeys: [],
-      openKeys: []
+      singleLogo: require('@/assets/img/single-logo.png')
     }
   },
   computed: {
     ...mapGetters([
       'getUser'
     ])
-  },
-  watch: {
-    $route: function (route) {
-      this.checkRoute(route.name)
-    }
-  },
-  methods: {
-    checkRoute (path) {
-      RouteConfig.map(item => {
-        if (item.path.indexOf(path) > -1) {
-          this.openKeys = item.openKeys
-          this.selectedKeys = item.selectedKeys
-        }
-      })
-    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-el-asider {
+.el-aside {
   background-color: #001529;
 }
 
@@ -116,15 +72,20 @@ el-asider {
 }
 
 .hide-sider {
-  width: 80px;
+  width: 80px !important;
 
   .el-scrollbar {
     width: 80px;
     height: 100%;
   }
+
+  .el-menu {
+    padding-left: 5px;
+  }
 }
 
 .sider {
+  width: 256px !important;
   height: 100%;
 
   .el-scrollbar {
@@ -143,7 +104,7 @@ el-asider {
 
 .wrap {
   position: relative;
-  height: 44px;
+  height: 23px;
   padding: 20px 40px;
   margin: 0;
 
