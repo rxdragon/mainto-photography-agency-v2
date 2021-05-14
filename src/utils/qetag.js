@@ -1,5 +1,5 @@
 import hash from 'js-sha1'
-const fileType = require('file-type')
+const FileType = require('file-type')
 
 const chunkSize = 4 * 1024 * 1024
 const shA1 = hash.digest
@@ -19,7 +19,7 @@ export default class QiNiuETag {
         const chunkSha1 = shA1(chunkData)
         this.sha1String.push(chunkSha1)
         if (this.chunkTime === 0) {
-          this.type = fileType(chunkData)
+          this.type = FileType(chunkData)
         }
         this.currentLength += size
         // 切换到下一个分块

@@ -64,6 +64,7 @@ export default {
       const fileType = this.fileData.type
       const imgSrc = this.changeFileToBaseURL(this.fileData)
       const image = new Image()
+      console.log(111)
       image.src = imgSrc
       image.onload = () => {
         const scale = image.width / image.height

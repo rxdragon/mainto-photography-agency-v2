@@ -1,80 +1,46 @@
 <template>
-  <div id="upload">
-    <!-- 照片上传 -->
-    <div class="upload">
-      <div class="clearfix">
-        <ul class="el-upload-list el-upload-list-picture-card">
-          <!-- 单张照片列表 -->
-          <li v-for="(item, index) in fileList" :key="item.sha1" class="list-wrap">
-            <div class="el-upload-list-item el-upload-list-item-done">
-              <div class="el-upload-list-item-info">
-                <PhotoBox />
-                <el-progress></el-progress>
-                <p class="picture-name">{{ `文件名: ${item.name}` }}</p>
-              </div>
-              <span class="el-upload-list-item-actions">
-                <i v-if="item.status === 'done' && item.response" class="anticon anticon-eye-o" @click="previewPicture(item.response.url)">
-                  <i type="eye" /></i>
-                <i class="anticon anticon-delete" @click="deletePicture(item, index)">
-                  <i type="delete" /></i>
-              </span>
-            </div>
-            <p class="picture-count">
-              填写人数:
-              <el-input-number
-                controls-position="right"
-                v-model="item.people_num"
-                placeholder="请填写人数"
-                :min="0"
-                :max="20"
-              />
-            </p>
-            <p class="picture-product">
-              选择产品:
-              <el-select v-model="item.product_id" placeholder="请选择产品类型" @change="onProductChange(item)">
-                <el-option v-for="(child, childIndex) in productList.msg" :key="childIndex" :value="child.cloud_product_id">{{ child.name }}</el-option>
-              </el-select>
-            </p>
-            <p v-if="needSplit(item)" class="picture-product">
-              <el-select v-model="item.splice_mark" class="concat" placeholder="选择拼接类型">
-                <el-option
-                  v-for="(positionItem, positionIndex) in splitArray"
-                  :key="positionIndex"
-                  :value="positionItem"
-                >
-                  {{ positionItem }}
-                </el-option>
-              </el-select>
-              <el-input-number
-                v-model="item.splice_position"
-                style="width: 40%; margin-left: 4%;"
-                :min="1"
-                :max="99"
-                placeholder="拼接序号"
-              />
-            </p>
-          </li>
-          <el-upload
-            drag
-            multiple
-            accept="image/*"
-            :headers="uploadHeader"
-            :action="upyunAction"
-            :before-upload="checkFile"
-            list-type="picture-card"
-            :data="getUpyun"
-            :file-list="fileList"
-            :show-file-list="false"
-            @change="handleChange"
-          >
-            <div class="el-icon-plus" slot="trigger"><br><br>点击上传</div>
-          </el-upload>
-        </ul>
-        <el-dialog :visible="previewVisible" :footer="null" :before-close="handleCancel">
-          <img style="width: 100%;" :src="previewImage">
-        </el-dialog>
-      </div>
-    </div>
+  <div id="upload" @click="logs">
+    <ul class="el-upload-list el-upload-list--picture-card">
+      <li v-for="(item, index) in fileList" :key="item.sha1" class="list-wrap">
+        <div class="el-upload-list__item is-success">
+          <PhotoBox v-if="item.status === 'done' && item.response" :file-obj="item" :img-src="item.response.url" />
+          <el-progress v-else type="circle" :percent="item.percent | formatProgress" />
+          <p class="picture-name">{{ `文件名: ${item.name}` }}</p>
+          <label class="el-upload-list__item-status-label">
+            <i class="el-icon-upload-success el-icon-check"/>
+          </label>
+          <span class="el-upload-list__item-actions">
+            <span class="el-upload-list__item-preview">
+              <i v-if="item.status === 'done' && item.response" class="el-icon-zoom-in" @click="previewPicture(item.response.url)"/>
+            </span>
+            <span class="el-upload-list__item-delete">
+              <i class="el-icon-delete"/>
+            </span>
+          </span>
+        </div>
+      </li>
+      <el-upload
+        accept="image/*"
+        drag
+        multiple
+        :headers="uploadHeader"
+        :action="upyunAction"
+        :data="getUpyun"
+        :file-list="fileList"
+        :show-file-list="true"
+        list-type="picture-card"
+        :before-upload="checkFile"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
+        :on-change="handleChange"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+      </el-upload>
+    </ul>
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog>
   </div>
 </template>
 
@@ -99,6 +65,10 @@ export default {
       uploadHeader: { 'X-Requested-With': null },
       previewVisible: false,
       previewImage: '',
+
+      dialogImageUrl: '',
+      dialogVisible: false,
+      
       fileList: [],
       shaList: [], // 用于判断一次性多选文件时间,重复文件判断
       count: 0,
@@ -128,6 +98,9 @@ export default {
     this.initUpyun()
   },
   methods: {
+    logs () {
+      console.log(this.fileList)
+    },
     ...mapActions(['initUpyun']),
     /**
      * @description 更改图片地址
@@ -170,7 +143,10 @@ export default {
     /**
      * @description 监听上传变化
      */
-    async handleChange ({ file, fileList }) {
+    async handleChange (file, fileList) {
+      console.log(111)
+      console.log(file)
+      console.log(fileList)
       this.fileList = fileList
       fileList.forEach(fileItem => {
         const isAdded = Boolean(fileItem.sha1)
@@ -221,6 +197,12 @@ export default {
     },
     handleCancel () {
       this.previewVisible = false
+    },
+    handleRemove (file, fileList) {
+    },
+    handlePictureCardPreview (file) {
+      this.dialogImageUrl = `${this.getHost}${url}`
+      this.dialogVisible = true
     }
   }
 }
