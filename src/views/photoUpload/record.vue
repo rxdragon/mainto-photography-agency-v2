@@ -1,5 +1,5 @@
 <template>
-  <div id="workRecord">
+  <div id="uploadRecord">
     <section class="content">
       <el-row  class="search">
         <div class="search-item" >
@@ -66,7 +66,7 @@
 import Api from '@/api/index.js'
 import moment from 'moment'
 export default {
-  name: 'WorkRecord',
+  name: 'UploadRecord',
   data () {
     return {
       data: [],

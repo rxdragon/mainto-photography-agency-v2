@@ -1,4 +1,4 @@
-#work {
+#uploadPhoto {
   margin: 0;
   padding: 24px;
   background-color: #fff;
@@ -62,8 +62,8 @@
 
         .el-upload-list--picture-card {
           margin: 0;
-          display: inline;
-          vertical-align: top;
+          display: flex;
+          flex-wrap: wrap;
 
           .el-upload-list__item-status-label {
             position: absolute;
@@ -91,13 +91,10 @@
 
           .el-upload-list__item {
             overflow: hidden;
-            background-color: #fff;
-            border: 1px solid #c0ccda;
             border-radius: 6px;
             box-sizing: border-box;
-            width: 148px;
-            height: 148px;
-            margin: 0 8px 8px 0;
+            width: 234px;
+            height: 250px;
             display: inline-block;
           }
         }
@@ -107,22 +104,24 @@
         transition: all .5s cubic-bezier(.55,0,.1,1);
         font-size: 14px;
         color: #606266;
-        line-height: 1.8;
-        margin-top: 5px;
+        margin: 0;
+        padding: 0;
         position: relative;
         box-sizing: border-box;
         border-radius: 4px;
-        width: 100%;
       }
 
       .el-upload--picture-card {
+        display: flex;
+        flex-wrap: wrap;
         border: none;
         width: 250px;
-        min-height: 340px;
+        min-height: 356px;
 
         .el-upload-dragger {
-          width: 250px;
-          min-height: 340px;
+          width: 266px;
+          min-height: 356px;
+          background-color: #fafafa;
 
           .el-icon-upload {
             margin-top: 80px;
@@ -137,10 +136,9 @@
 
       .list-wrap {
         min-height: 340px;
-        width: 250px;
         padding: 8px;
         border-radius: 4px;
-        margin-right: 8px;
+        margin: 0 20px 20px 0;
         background-color: #f5f7fa;
 
         p {
@@ -161,12 +159,42 @@
           text-align: center;
         }
 
+        .picture-count {
+          font-size: small;
+          width: 234px;
+          .el-input-number {
+            width: 74%;
+          }
+        }
+
         .picture-product {
-          .concat {
-            width: 55%;
+          font-size: small;
+          width: 234px;
+          .el-select {
+            width: 74%;
+          }
+        }
+
+        .picture-concat {
+          font-size: small;
+          width: 234px;
+          .el-select {
+            width: 56%;
           }
         }
       }
+    }
+    .el-upload-list--picture-card {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .el-upload-list__item {
+      width: 234px;
+      height: 250px;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
     }
   }
 

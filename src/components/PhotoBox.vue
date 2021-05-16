@@ -1,10 +1,11 @@
 <template>
   <div class="photo-box">
-    <img :src="src" alt="" @error="handleErrorImg">
-    <div v-if="isError" class="err-img">
-      <i class="icon" type="picture" />
-      <div class="err-desc">网络加载错误</div>
-    </div>
+    <el-image :src="src" fit="contain">
+      <div slot="error" class="image-slot">
+        <i class="el-icon-picture-outline"></i>
+        <div class="err-desc">网络加载错误</div>
+      </div>
+    </el-image>
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
         this.src = this.handleCompressImg(this.imgSrc)
       }
     } else {
-      this.fileData = this.fileObj.originFileObj
+      this.fileData = this.fileObj.raw
       this.pressImg()
     }
   },
@@ -64,7 +65,6 @@ export default {
       const fileType = this.fileData.type
       const imgSrc = this.changeFileToBaseURL(this.fileData)
       const image = new Image()
-      console.log(111)
       image.src = imgSrc
       image.onload = () => {
         const scale = image.width / image.height
@@ -87,29 +87,9 @@ export default {
   width: 100%;
   height: 100%;
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .err-img {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-
-    .icon {
-      font-size: 40px;
-      color: #eee;
-    }
-
-    .err-desc {
-      margin-top: 16px;
-      font-size: 16px;
-      color: #eee;
-    }
+  .el-image {
+    width: 232px;
+    height: 248px;
   }
 }
 </style>

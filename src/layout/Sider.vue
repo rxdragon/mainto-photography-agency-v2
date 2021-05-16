@@ -13,13 +13,13 @@
         text-color="rgba(255, 255, 255, 0.65)"
         active-text-color="#409EFF"
       >
-        <el-submenu index="work">
+        <el-submenu index="uploadPhoto">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span>照片上传</span>
           </template>
-          <el-menu-item index="work">上传拍摄</el-menu-item>
-          <el-menu-item index="workRecord">上传历史记录</el-menu-item>
+          <el-menu-item index="uploadPhoto">上传拍摄</el-menu-item>
+          <el-menu-item index="uploadRecord">上传历史记录</el-menu-item>
         </el-submenu>
         <el-menu-item v-if="getUser.level === 'master'" index="product">
           <i class="el-icon-menu"></i>

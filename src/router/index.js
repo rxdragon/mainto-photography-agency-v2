@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 const deafault = () => import('@/views/home.vue')
-const work = () => import('@/views/work/index.vue')
-const workRecord = () => import('@/views/work/record.vue')
-const recordDetail = () => import('@/views/work/recordDetail.vue')
+const uploadPhoto = () => import('@/views/photoUpload/index.vue')
+const uploadRecord = () => import('@/views/photoUpload/record.vue')
+const recordDetail = () => import('@/views/photoUpload/recordDetail.vue')
 const product = () => import('@/views/product/index.vue')
 const productDetail = () => import('@/views/product/productDetail.vue')
 const addProduct = () => import('@/views/product/addProduct.vue')
@@ -23,17 +23,17 @@ export const routes = [{
   }
 },
 {
-  path: '/work',
-  name: 'work',
-  component: work,
+  path: '/uploadPhoto',
+  name: 'uploadPhoto',
+  component: uploadPhoto,
   meta: {
     showButton: false
   }
 },
 {
-  path: '/workRecord',
-  name: 'workRecord',
-  component: workRecord,
+  path: '/uploadRecord',
+  name: 'uploadRecord',
+  component: uploadRecord,
   meta: {
     showButton: false
   }

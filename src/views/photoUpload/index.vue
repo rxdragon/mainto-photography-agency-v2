@@ -1,5 +1,5 @@
 <template>
-  <div id="work">
+  <div id="uploadPhoto">
     <section class="content">
       <!-- 照片上传 -->
       <div class="upload">
@@ -30,19 +30,39 @@
         </el-col>
         <el-col :span="24" class="child-item">
           <span class="title">订单号: </span>
-          <el-input v-model.trim="temporaryInfo.orderNum" placeholder="请输入订单号" style="width: 80%;" />
+          <el-input
+            size="small"
+            v-model.trim="temporaryInfo.orderNum"
+            placeholder="请输入订单号"
+            style="width: 80%;"
+          />
         </el-col>
         <el-col :span="24" class="child-item">
           <span class="title">门店名: </span>
-          <el-input v-model.trim="temporaryInfo.storeName" placeholder="请输入门店名" style="width: 80%;" />
+          <el-input
+            size="small"
+            v-model.trim="temporaryInfo.storeName"
+            placeholder="请输入门店名"
+            style="width: 80%;"
+          />
         </el-col>
         <el-col :span="24" class="child-item">
           <span class="title">摄影师: </span>
-          <el-input v-model.trim="temporaryInfo.photographer" placeholder="请输入摄影师" style="width: 80%;" />
+          <el-input
+            size="small"
+            v-model.trim="temporaryInfo.photographer"
+            placeholder="请输入摄影师"
+            style="width: 80%;"
+          />
         </el-col>
         <el-col :span="24" class="child-item">
           <span class="title">上传人: </span>
-          <el-input v-model.trim="temporaryInfo.uploader" placeholder="请输入上传人信息" style="width: 80%;" />
+          <el-input
+            size="small"
+            v-model.trim="temporaryInfo.uploader"
+            placeholder="请输入上传人信息"
+            style="width: 80%;"
+          />
         </el-col>
       </div>
       <!-- 订单信息 -->
@@ -51,11 +71,21 @@
         <el-row>
           <el-col :span="24" class="child-item">
             <span class="title">顾客姓名: </span>
-            <el-input v-model.trim="orderInfo.name" placeholder="请输入顾客姓名" style="width: 80%;" />
+            <el-input
+              size="small"
+              v-model.trim="orderInfo.name"
+              placeholder="请输入顾客姓名"
+              style="width: 80%;"
+            />
           </el-col>
           <el-col :span="24" class="child-item">
             <span class="title">订单标题: </span>
-            <el-input v-model.trim="orderInfo.title" placeholder="请输入订单标题" style="width: 80%;" />
+            <el-input
+              size="small"
+              v-model.trim="orderInfo.title"
+              placeholder="请输入订单标题"
+              style="width: 80%;"
+            />
           </el-col>
         </el-row>
       </div>
@@ -90,7 +120,12 @@
         <el-row class="child-item">
           <el-col :span="24">
             <span class="title">修图备注: </span>
-            <el-input v-model.trim="orderInfo.retouchNote" placeholder="请输入修图备注" style="width: 80%;" />
+            <el-input
+              size="small"
+              v-model.trim="orderInfo.retouchNote"
+              placeholder="请输入修图备注"
+              style="width: 80%;"
+            />
           </el-col>
         </el-row>
       </div>
@@ -121,7 +156,7 @@ import ProductSelect from '@/components/ProductSelect'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Work',
+  name: 'UploadPhoto',
   components: { Upload, ProductSelect },
   data () {
     return {

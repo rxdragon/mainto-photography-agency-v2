@@ -50,10 +50,10 @@ export default {
     switchText (name) {
       let text = ''
       switch (name) {
-        case 'work':
+        case 'uploadPhoto':
           text = '上传拍摄'
           break
-        case 'workRecord':
+        case 'uploadRecord':
           text = '历史记录'
           break
         case 'recordDetail':

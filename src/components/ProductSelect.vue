@@ -1,12 +1,21 @@
 <template>
   <div class="product-select">
-    <el-select v-model="productTypeData" :disabled="loading" style="width: 120px;">
-      <el-option v-for="typeItem in productType" :key="typeItem.value">
-        {{ typeItem.label }}
-      </el-option>
+    <el-select
+      size="small"
+      v-model="productTypeData"
+      :disabled="loading"
+      style="width: 120px;"
+    >
+      <el-option
+        v-for="typeItem in productType"
+        :key="typeItem.value"
+        :label="typeItem.label"
+        :value="typeItem.value"
+      />
     </el-select>
 
     <el-select
+      size="small"
       show-search
       allowClear
       style="width: 100%;"
@@ -14,9 +23,12 @@
       v-bind="$attrs"
       v-on="$listeners"
     >
-      <el-option v-for="(productItem,  productIndex) in options" :key="productIndex" :value="productItem.value">
-        {{ productItem.label }}
-      </el-option>
+      <el-option
+        v-for="(productItem,  productIndex) in options"
+        :key="productIndex"
+        :label="productItem.label"
+        :value="productItem.value"
+      />
     </el-select>
   </div>
 </template>
