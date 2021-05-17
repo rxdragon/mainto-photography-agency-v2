@@ -7,7 +7,7 @@
       />
       <section :style="{ float: 'right' }">
         <span>{{ getUser.nick }}</span>
-        <el-tag color="#1769FF" class="organization">{{ getUser.organization.nick }}</el-tag>
+        <el-tag effect="dark" class="organization">{{ getUser.organization.nick }}</el-tag>
         <i class="el-icon-switch-button out-button" @click="showConfirm"/>
       </section>
     </el-row>

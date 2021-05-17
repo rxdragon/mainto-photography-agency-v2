@@ -1,12 +1,19 @@
 <template>
   <div id="product">
-    <el-button class="add-btn" type="primary" @click="routeView('/addProduct')">新增产品</el-button>
+    <el-button
+      size="small"
+      class="add-btn"
+      type="primary"
+      @click="routeView('/addProduct')"
+    >
+      新增产品
+    </el-button>
     <el-row class="tab">
-      <el-tabs default-active-key="1" :animated="{'tabPane': false}">
-        <el-tab-pane key="1" label="审核通过">
+      <el-tabs value="PassedTab">
+        <el-tab-pane name="PassedTab" label="审核通过">
           <PassedTab class="content" />
         </el-tab-pane>
-        <el-tab-pane key="2" label="待审核" force-render>
+        <el-tab-pane name="NotPassTab" label="待审核" force-render>
           <NotPassTab class="content" />
         </el-tab-pane>
       </el-tabs>

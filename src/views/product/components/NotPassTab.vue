@@ -4,9 +4,9 @@
       <el-col :span="8" class="date">
         <span class="tip">选择状态: </span>
         <el-select v-model="selectValue" default-value="" style="width: 50%;">
-          <el-select-option value="not_pass">全部</el-select-option>
-          <el-select-option value="wait_review">待审核</el-select-option>
-          <el-select-option value="refuse">审核拒绝</el-select-option>
+          <el-option value="not_pass">全部</el-option>
+          <el-option value="wait_review">待审核</el-option>
+          <el-option value="refuse">审核拒绝</el-option>
         </el-select>
       </el-col>
       <el-col :span="1" style="text-align: right;">

@@ -5,9 +5,10 @@
         <div class="search-item" >
           <span class="tip">选择日期: </span>
           <el-date-picker
+            size="small"
+            v-model="search.date"
             :picker-options="pickerOptions"
             value-format="yyyy-MM-dd"
-            v-model="search.date"
             type="daterange"
             range-separator="~"
             start-placeholder="开始日期"
@@ -16,47 +17,58 @@
         </div>
         <div class="search-item" >
           <span class="tip">订单标题: </span>
-          <el-input v-model="search.title" placeholder="请输入订单标题" style="width: 75%;" />
+          <el-input
+            size="small"
+            v-model="search.title"
+            placeholder="请输入订单标题"
+            style="width: 75%;"
+          />
         </div>
         <div class="search-item" >
           <span class="tip">顾客姓名: </span>
-          <el-input v-model="search.customerName" placeholder="请输入顾客姓名" style="width: 75%;" />
+          <el-input
+            size="small"
+            v-model="search.customerName"
+            placeholder="请输入顾客姓名"
+            style="width: 75%;"
+          />
         </div>
         <div class="search-item"  style="text-align: right;">
-          <el-button type="primary" @click="searchOrder(1)">查 询</el-button>
+          <el-button size="small" type="primary" @click="searchOrder(1)">查 询</el-button>
         </div>
       </el-row>
       <div class="table">
         <template>
-          <el-table :data="data" :row-key="bindKey" :loading="loading">
-            <el-table-column label="订单标题" prop="title" column-key="title"/>
-            <el-table-column label="订单号" prop="order_num" column-key="order_num"/>
-            <el-table-column label="顾客姓名" prop="clientName" column-key="clientName"/>
-            <el-table-column label="上传时间" prop="created_at" column-key="created_at"/>
-            <el-table-column label="流水号" prop="stream_nums" column-key="stream_nums">
-              <span slot="stream_nums" slot-scope="record">
-                <p v-for="(item, index) in record.stream_nums" :key="index">
+          <el-table v-loading="loading" :data="data">
+            <el-table-column label="订单标题" prop="title" />
+            <el-table-column label="订单号" prop="order_num" />
+            <el-table-column label="顾客姓名" prop="clientName" />
+            <el-table-column label="上传时间" prop="created_at" />
+            <el-table-column label="流水号">
+              <span slot-scope="{ row }">
+                <p v-for="(item, index) in row.stream_nums" :key="index">
                   {{ `${item.stream_num} (${transText[item.state] || '状态未知'})` }}
                 </p>
               </span>
             </el-table-column>
-            <el-table-column label="操作" prop="action" column-key="action">
-              <span slot="action" slot-scope="record">
-                <span v-if="hasRetouchStream(record.stream_nums)" class="cancel">
-                  <a href="javascript:;" @click="cancelOrder(record)">撤回</a>
+            <el-table-column label="操作">
+              <span slot-scope="{ row }">
+                <span v-if="hasRetouchStream(row.stream_nums)" class="cancel">
+                  <a href="javascript:;" @click="cancelOrder(row)" style="text-decoration: none;">撤回</a>
                   <el-divider type="vertical" />
                 </span>
-                <a href="javascript:;" @click="viewsDetail(record)">详情</a>
+                <a href="javascript:;" @click="viewsDetail(row)" style="text-decoration: none;">详情</a>
               </span>
             </el-table-column>
           </el-table>
         </template>
       </div>
       <el-pagination
+        hide-on-single-page
         :current-page.sync="search.page.index"
         class="pagination"
         :total="search.page.total"
-        @change="pageChange"
+        @current-change="pageChange"
       />
     </section>
   </div>
@@ -81,7 +93,7 @@ export default {
       },
       loading: true,
       search: {
-        date: [],
+        date: ['', ''],
         title: '',
         customerName: '',
         page: {
@@ -101,8 +113,8 @@ export default {
     searchParams () {
       return {
         type: 'person',
-        createdAtStart: this.search.date[0] || '',
-        createdAtEnd: this.search.date[1] || '',
+        createdAtStart: this.search.date ? this.search.date[0] : '',
+        createdAtEnd: this.search.date ? this.search.date[1] : '',
         title: this.search.title,
         customerName: this.search.customerName,
         page: this.search.page.index,
@@ -136,9 +148,6 @@ export default {
         this.loading = false
       })
     },
-    dateChange (date, dateString) {
-      this.search.date = dateString
-    },
     /**
      * @description 监听页面变化
      */
@@ -170,8 +179,8 @@ export default {
     },
     viewsDetail (record) {
       this.$router.push({
-        name: 'recordDetail',
-        params: { id: record.order_num }
+        path: 'recordDetail',
+        query: { orderNum: record.order_num }
       })
     }
   }

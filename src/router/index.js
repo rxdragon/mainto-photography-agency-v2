@@ -39,7 +39,7 @@ export const routes = [{
   }
 },
 {
-  path: '/recordDetail/:id',
+  path: '/recordDetail',
   name: 'recordDetail',
   component: recordDetail,
   meta: {

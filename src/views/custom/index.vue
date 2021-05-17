@@ -4,7 +4,7 @@
       <el-row class="search">
         <el-col :span="8">
           <span class="tip">上传时间: </span>
-          <el-range-picker class="wrap" @change="dateChange" />
+          <el-date-picker type="daterange" class="wrap" @change="dateChange" />
         </el-col>
         <el-col :span="8">
           <span class="tip">顾客姓名: </span>

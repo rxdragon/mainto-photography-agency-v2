@@ -1,6 +1,10 @@
 <template>
   <div id="recordDetail">
-    sss
+    <div v-if="!loading" class="container">
+      <section class="content">
+        <h4><span class="line"/><span>订单信息</span></h4>
+      </section>
+    </div>
   </div>
 </template>
 

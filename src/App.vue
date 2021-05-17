@@ -77,6 +77,7 @@ body {
 
   .el-main {
     min-width: 1080px;
+    padding: 0;
     background-color: rgb(247, 247, 247);
   }
 }

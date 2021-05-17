@@ -3,45 +3,56 @@
     <el-row class="search">
       <el-col :span="10" class="date">
         <span class="tip">选择日期: </span>
-        <el-range-picker :disabled-date="disabledDate" @change="dateChange" />
+        <el-date-picker
+          v-model="date"
+          size="small"
+          type="daterange"
+          :picker-options="pickerOptions"
+          range-separator="~"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        />
       </el-col>
       <el-col :span="3" style="text-align: right;">
-        <el-button type="primary" @click="searchProduct(1)">查 询</el-button>
+        <el-button size="small" type="primary" @click="searchProduct(1)">查 询</el-button>
       </el-col>
     </el-row>
-    <el-table
-      class="table"
-      :columns="columns"
-      :data-source="dataSource"
-      :row-key="bindKey"
-      :pagination="false"
-      :loading="loading"
-    >
-      <span slot="status" slot-scope="record">
-        <span>
-          <el-badge status="processing" />
-          {{ stateText[record.state] || '状态异常' }}
+    <el-table v-loading="loading" :data="dataSource">
+      <el-table-column label="产品名称" prop="name" />
+      <el-table-column label="审核通过时间" prop="review_pass_at" />
+      <el-table-column label="状态">
+        <span slot-scope="{ row }">
+          <span>
+            <el-badge
+              is-dot
+              :type="row.state === 'enable' ? 'primary' : 'danger'"
+            />
+            {{ stateText[row.state] || '状态异常' }}
+          </span>
         </span>
-      </span>
-      <span slot="action" slot-scope="record">
-        <div>
-          <span v-if="record.state === 'enable'" class="cancel">
-            <a href="javascript:;" style="color: #f5222d;" @click="switchState(record)">禁用</a>
-            <el-divider type="vertical" />
-          </span>
-          <span v-else-if="record.state === 'disable'" class="cancel">
-            <a href="javascript:;" style="color: #52c41a;" @click="switchState(record)">启用</a>
-            <el-divider type="vertical" />
-          </span>
-          <a href="javascript:;" @click="viewDetail(record)">详情</a>
-        </div>
-      </span>
+      </el-table-column>
+      <el-table-column label="操作">
+        <span slot-scope="{ row }">
+          <div>
+            <span v-if="row.state === 'enable'">
+              <a href="javascript:;" style="color: #f5222d; text-decoration: none;" @click="switchState(row)">禁用</a>
+              <el-divider direction="vertical" />
+            </span>
+            <span v-else-if="row.state === 'disable'">
+              <a href="javascript:;" style="color: #52c41a; text-decoration: none;" @click="switchState(row)">启用</a>
+              <el-divider direction="vertical" />
+            </span>
+            <a href="javascript:;" style="text-decoration: none;" @click="viewDetail(row)">详情</a>
+          </div>
+        </span>
+      </el-table-column>
     </el-table>
     <el-pagination
-      v-model="page.index"
-      class="pagination"
+      :current-page.sync="page.index"
       :total="page.total"
-      @change="onPageChange"
+      @current-change="onPageChange"
+      class="pagination"
+      layout="prev, pager, next"
     />
   </div>
 </template>
@@ -53,34 +64,19 @@ export default {
   name: 'PassedTab',
   data () {
     return {
+      itemKey: '',
+      pickerOptions: {
+        disabledDate (current) {
+          return current && current > moment().endOf('day')
+        }
+      },
       dataSource: [],
-      columns: [{
-        title: '产品名称',
-        dataIndex: 'name',
-        width: 300,
-        align: 'left'
-      }, {
-        title: '审核通过时间',
-        dataIndex: 'review_pass_at',
-        width: 300,
-        align: 'left'
-      }, {
-        title: '状态',
-        scopedSlots: { customRender: 'status' },
-        width: 200,
-        align: 'left'
-      }, {
-        title: '操作',
-        scopedSlots: { customRender: 'action' },
-        width: 200,
-        align: 'right'
-      }],
       stateText: {
         disable: '禁用',
         enable: '启用',
         refuse: '已删除'
       },
-      date: [],
+      date: ['', ''],
       page: {
         size: 10,
         index: 1,
@@ -94,8 +90,8 @@ export default {
       return {
         state: 'pass',
         name: '',
-        reviewPassAtStart: this.date[0] || '',
-        reviewPassAtEnd: this.date[1] || '',
+        reviewPassAtStart: this.date ? this.date[0] : '',
+        reviewPassAtEnd: this.date ? this.date[1] : '',
         page: this.page.index,
         pageSize: this.page.size
       }
@@ -115,19 +111,18 @@ export default {
       })
     },
     switchState (record) {
+      this.loading = true
       Api.product.switch({
         id: record.id
       }).catch((e) => {
+        this.loading = false
         this.$message.error(e.data.error_msg)
+        throw new Error(e.data.error_msg)
       }).then(() => {
-        this.$message.success('更改状态成功', 1, this.searchProduct)
+        this.loading = false
+        this.$message.success('更改状态成功')
+        this.searchProduct()
       })
-    },
-    bindKey (record, index) {
-      return index
-    },
-    dateChange (date, dateString) {
-      this.date = dateString
     },
     /**
      * @description 搜索产品
@@ -135,11 +130,13 @@ export default {
     searchProduct (page) {
       this.loading = true
       this.page.index = page || this.page.index
-      Api.product.list(this.searchParams).then((res) => {
+      Api.product.list(this.searchParams).catch((e) => {
+        this.loading = false
+        this.$message.error(e.data.error_msg)
+      }).then((res) => {
         this.dataSource = res.msg.items
         this.page.total = res.msg.count
-      }).catch((e) => {
-        this.$message.error(e.data.error_msg)
+        this.loading = false
       }).finally(() => {
         this.loading = false
       })
@@ -169,12 +166,8 @@ export default {
   }
 }
 
-.table {
-  min-height: 200px;
-  margin-top: 20px;
-
-  .btnDetail {
-    margin-left: 20px;
-  }
+.el-pagination {
+  float: right;
+  margin-top: 8px;
 }
 </style>
