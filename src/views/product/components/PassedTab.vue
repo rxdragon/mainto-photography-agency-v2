@@ -25,7 +25,7 @@
           <span>
             <el-badge
               is-dot
-              :type="row.state === 'enable' ? 'primary' : 'danger'"
+              :type="row.state === 'enable' ? 'success' : 'danger'"
             />
             {{ stateText[row.state] || '状态异常' }}
           </span>
