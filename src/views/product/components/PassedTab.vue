@@ -47,13 +47,15 @@
         </span>
       </el-table-column>
     </el-table>
-    <el-pagination
-      :current-page.sync="page.index"
-      :total="page.total"
-      @current-change="onPageChange"
-      class="pagination"
-      layout="prev, pager, next"
-    />
+    <div class="page-box">
+      <el-pagination
+        :current-page.sync="page.index"
+        :total="page.total"
+        @current-change="onPageChange"
+        class="pagination"
+        layout="prev, pager, next"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -164,10 +166,5 @@ export default {
       font-size: 14px;
     }
   }
-}
-
-.el-pagination {
-  float: right;
-  margin-top: 8px;
 }
 </style>

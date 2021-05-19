@@ -55,7 +55,7 @@
               <span slot-scope="{ row }">
                 <span v-if="hasRetouchStream(row.stream_nums)" class="cancel">
                   <a href="javascript:;" @click="cancelOrder(row)" style="text-decoration: none;">撤回</a>
-                  <el-divider type="vertical" />
+                  <el-divider direction="vertical" />
                 </span>
                 <a href="javascript:;" @click="viewsDetail(row)" style="text-decoration: none;">详情</a>
               </span>
@@ -63,13 +63,14 @@
           </el-table>
         </template>
       </div>
-      <el-pagination
-        hide-on-single-page
-        :current-page.sync="search.page.index"
-        class="pagination"
-        :total="search.page.total"
-        @current-change="pageChange"
-      />
+      <div class="page-box">
+        <el-pagination
+          :current-page.sync="search.page.index"
+          class="pagination"
+          :total="search.page.total"
+          @current-change="pageChange"
+        />
+      </div>
     </section>
   </div>
 </template>

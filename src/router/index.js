@@ -2,15 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 const deafault = () => import('@/views/home.vue')
-const uploadPhoto = () => import('@/views/photoUpload/index.vue')
-const uploadRecord = () => import('@/views/photoUpload/record.vue')
-const recordDetail = () => import('@/views/photoUpload/recordDetail.vue')
-const product = () => import('@/views/product/index.vue')
+const uploadPhoto = () => import('@/views/photo-upload/photoUpload.vue')
+const uploadRecord = () => import('@/views/photo-upload/record.vue')
+const recordDetail = () => import('@/views/photo-upload/recordDetail.vue')
+const product = () => import('@/views/product/product.vue')
 const productDetail = () => import('@/views/product/productDetail.vue')
 const addProduct = () => import('@/views/product/addProduct.vue')
-const manage = () => import('@/views/manage/index.vue')
+const manage = () => import('@/views/manage/manage.vue')
 const manageAccount = () => import('@/views/manage/account.vue')
-const custom = () => import('@/views/custom/index.vue')
+const custom = () => import('@/views/custom/custom.vue')
 const customDetail = () => import('@/views/custom/detail.vue')
 
 Vue.use(Router)

@@ -16,7 +16,7 @@
           <div>
             <div v-if="record.state === 'disabled'" class="button-group">
               <a href="javascript:;" style="color: #52c41a;" @click="enableSubuser(record)">启 用</a>
-              <el-divider type="vertical" />
+              <el-divider direction="vertical" />
             </div>
             <div v-else-if="record.state === 'enabled'" class="button-group">
               <a
@@ -26,7 +26,7 @@
                 @click="disableSubuser(record)"
               >禁 用
               </a>
-              <el-divider type="vertical" />
+              <el-divider direction="vertical" />
             </div>
             <a href="javascript:;" class="edit" @click="reviewDetail(record)">编 辑</a>
           </div>

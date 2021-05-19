@@ -1,7 +1,7 @@
 <template>
   <div class="full-page">
     <div class="img-wrap">
-      <img :src="defaultBg">
+      <img :src="defaultBg" />
       <p>欢迎来到<span class="tip">缦图云端拍摄中心</span></p>
     </div>
   </div>

@@ -2,8 +2,8 @@
   <el-aside :class="collapsed ? 'hide-sider' : 'sider'">
     <el-scrollbar>
       <p class="wrap">
-        <img v-if="!collapsed" :src="logo">
-        <img v-else class="single-photo" :src="singleLogo">
+        <img v-if="!collapsed" :src="logo" />
+        <img v-else class="single-photo" :src="singleLogo" />
       </p>
       <el-menu
         router

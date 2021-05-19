@@ -2,7 +2,7 @@
   <div class="login-wrap" v-loading="loading">
     <div class="form-wrap">
       <div class="img-wrap">
-        <img :src="logo" alt="logo">
+        <img :src="logo" alt="logo" />
       </div>
       <p>云端拍摄中心</p>
       <el-form

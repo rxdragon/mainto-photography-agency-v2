@@ -28,7 +28,7 @@
         <div>
           <span v-if="record.state === 'refuse'" class="cancel">
             <a href="javascript:;" @click="resubmit(record)">重新提交</a>
-            <el-divider type="vertical" />
+            <el-divider direction="vertical" />
           </span>
           <a href="javascript:;" @click="viewDetail(record)">详情</a>
         </div>

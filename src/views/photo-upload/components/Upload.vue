@@ -86,7 +86,7 @@
       </el-upload>
     </ul>
     <el-dialog :visible.sync="previewVisible">
-      <img width="100%" :src="previewImage" alt="">
+      <img width="100%" :src="previewImage" />
     </el-dialog>
   </div>
 </template>
