@@ -25,6 +25,7 @@
           <span>
             <el-badge
               is-dot
+              style="padding-top: 11px;"
               :type="row.state === 'enable' ? 'success' : 'danger'"
             />
             {{ stateText[row.state] || '状态异常' }}
@@ -109,7 +110,7 @@ export default {
     viewDetail (record) {
       this.$router.push({
         name: 'productDetail',
-        params: { id: record.id }
+        query: { id: record.id }
       })
     },
     switchState (record) {

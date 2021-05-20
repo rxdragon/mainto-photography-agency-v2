@@ -55,7 +55,7 @@ export const routes = [{
   }
 },
 {
-  path: '/productDetail/:id',
+  path: '/productDetail',
   name: 'productDetail',
   component: productDetail,
   meta: {
@@ -95,7 +95,7 @@ export const routes = [{
   }
 },
 {
-  path: '/customDetail/:id',
+  path: '/customDetail',
   name: 'customDetail',
   component: customDetail,
   meta: {

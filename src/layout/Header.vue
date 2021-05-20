@@ -16,7 +16,14 @@
         <h3>{{ title }}</h3>
       </el-col>
       <el-col :span="5" v-if="showButton" class="back-button">
-        <el-button type="primary" @click="routeBack">返回</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="routeBack"
+          style="margin-top: 23px;"
+        >
+          返回
+        </el-button>
       </el-col>
     </el-row>
   </div>

@@ -261,7 +261,6 @@ export default {
     async submitCloud () {
       const isAllFinish = this.$refs.uploadChild.getChildPhotos()
       if (!isAllFinish) return
-      // TODO: 后续增补Verification模块
       if (!this.emptyParams()) return this.$message.error('请填写完整信息')
       this.$emit('loading', true)
       const req = JSON.parse(JSON.stringify(this.params))

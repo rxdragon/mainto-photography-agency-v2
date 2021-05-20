@@ -1,0 +1,163 @@
+#addProduct {
+  margin: 24px;
+  padding: 24px;
+  background-color: #fff;
+
+  .spin-content {
+    height: 100vh;
+    line-height: 80vh;
+    text-align: center;
+  }
+
+  .title {
+    text-align: left;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .upload {
+    display: flex;
+  }
+
+  .list-wrap {
+    min-height: 340px;
+    width: 240px;
+    padding: 8px;
+    border-radius: 4px;
+    margin: 0 20px 0 0;
+    background-color: #f5f7fa;
+
+    p {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .picture-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      padding: 2px 0;
+      margin: 0;
+      opacity: 0.5;
+      text-align: center;
+    }
+  }
+
+  .el-upload-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    .el-upload-list--picture-card {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+
+      .el-upload-list__item-status-label {
+        position: absolute;
+        right: -15px;
+        top: -6px;
+        width: 40px;
+        height: 24px;
+        background: #13ce66;
+        text-align: center;
+        transform: rotate(45deg);
+        box-shadow: 0 0 1pc 1px rgb(0 0 0 / 20%);
+
+        i {
+          font-size: 12px;
+          margin-top: 11px;
+          transform: rotate(-45deg);
+        }
+
+        .el-icon-upload-success {
+          .el-icon-check {
+            color: #FFF;
+          }
+        }
+      }
+
+      .el-upload-list__item {
+        .is-success {
+          overflow: hidden;
+          border-radius: 6px;
+          box-sizing: border-box;
+          width: 234px;
+          height: 250px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .el-upload-list__item {
+    transition: all .5s cubic-bezier(.55,0,.1,1);
+    font-size: 14px;
+    color: #606266;
+    margin: 0;
+    padding: 0;
+    width: 240px;
+    height: 340px;
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+
+  .el-upload--picture-card {
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+    width: 250px;
+    min-height: 356px;
+
+    .el-upload-dragger {
+      width: 266px;
+      min-height: 356px;
+      background-color: #fafafa;
+
+      .el-icon-upload {
+        margin-top: 80px;
+      }
+
+      .el-upload__text {
+        line-height: 11px;
+      }
+
+    }
+  }
+
+  .form {
+    margin-top: 20px;
+    text-align: left;
+
+    .item {
+      margin-bottom: 40px;
+    }
+
+    .left-title {
+      width: 10%;
+    }
+    
+    .tip.name {
+      height: 32px;
+      line-height: 32px;
+    }
+
+    .tip {
+      display: inline-block;
+    }
+
+    .submit {
+      margin-top: 20px;
+    }
+
+    b {
+      color: red;
+    }
+  }
+}

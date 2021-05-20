@@ -18,36 +18,66 @@
           <el-button type="primary" @click="searchOrder(1)">查 询</el-button>
         </el-col>
       </el-row>
-      <el-table
-        class="table"
-        :loading="loading"
-        :row-key="bindKey"
-        :columns="columns"
-        :data-source="data"
-        :pagination="false"
-      >
-        <span slot="stream_nums" slot-scope="record">
-          <p v-for="(item, index) in record.stream_nums" :key="index">
-            {{ `${item.stream_num} (${transText[item.state] || '状态未知'})` }}
-            <el-popover title="修图信息">
-              <template slot="content">
-                <p>修图主管：{{ item.retoucherLeader }}</p>
-              </template>
-              <el-icon type="info-circle" />
-            </el-popover>
-          </p>
-        </span>
-
-        <span slot="action" slot-scope="record">
-          <a href="javascript:;" @click="routeView(record)">详 情</a>
-        </span>
+      <el-table class="table" v-loading="loading" :data="data">
+        <el-table-column
+          header-align="left"
+          align="left"
+          prop="title"
+          label="订单标题"
+        />
+        <el-table-column
+          header-align="left"
+          align="left"
+          prop="order_num"
+          label="订单号"
+        />
+        <el-table-column
+          header-align="left"
+          align="left"
+          prop="clientName"
+          label="顾客姓名"
+        />
+        <el-table-column
+          header-align="left"
+          align="left"
+          prop="updated_at"
+          label="上传时间"
+        />
+        <el-table-column
+          header-align="left"
+          align="left"
+          prop="photographer"
+          label="摄影师"
+        />
+        <el-table-column header-align="left" align="left" label="流水号">
+          <span slot-scope="{ row }">
+            <p v-for="(item, index) in row.stream_nums" :key="index">
+              {{ `${item.stream_num} (${transText[item.state] || '状态未知'})` }}
+              <el-popover
+                width="200"
+                trigger="hover"
+                title="修图信息"
+                :content="'修图主管：' + item.retoucherLeader"
+              >
+                <i slot="reference" class="el-icon-info" />
+              </el-popover>
+            </p>
+          </span>
+        </el-table-column>
+        <el-table-column header-align="left" align="left" label="操作">
+          <span slot-scope="{ row }">
+            <a href="javascript:;" @click="routeView(row)" style="text-decoration: none;">详情</a>
+          </span>
+        </el-table-column>
       </el-table>
-      <el-pagination
-        v-model="search.page.index"
-        class="pagination"
-        :total="search.page.total"
-        @change="onPageChange"
-      />
+      <div class="page-box">
+        <el-pagination
+          :current-page.sync="search.page.index"
+          class="pagination"
+          :total="search.page.total"
+          @current-change="onPageChange"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -56,42 +86,6 @@ import Api from '@/api/index.js'
 export default {
   name: 'Custom',
   data () {
-    const rowInfo = [{
-      title: '订单标题',
-      width: 300,
-      dataIndex: 'title',
-      align: 'left'
-    }, {
-      title: '订单号',
-      width: 300,
-      dataIndex: 'order_num',
-      align: 'left'
-    }, {
-      title: '顾客姓名',
-      width: 200,
-      dataIndex: 'clientName',
-      align: 'left'
-    }, {
-      title: '上传时间',
-      width: 200,
-      dataIndex: 'updated_at',
-      align: 'left'
-    }, {
-      title: '摄影师',
-      width: 200,
-      dataIndex: 'photographer',
-      align: 'left'
-    }, {
-      title: '流水号',
-      width: 400,
-      scopedSlots: { customRender: 'stream_nums' },
-      align: 'left'
-    }, {
-      title: '操作',
-      scopedSlots: { customRender: 'action' },
-      width: 100,
-      align: 'right'
-    }]
     return {
       data: [],
       transText: {
@@ -113,8 +107,7 @@ export default {
           total: 0
         }
       },
-      loading: false,
-      columns: rowInfo
+      loading: false
     }
   },
   created () {

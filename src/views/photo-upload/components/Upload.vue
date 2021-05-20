@@ -114,12 +114,8 @@ export default {
       previewImage: '',
       fileList: [],
       shaList: [], // 用于判断一次性多选文件时间,重复文件判断
-      count: 0,
-      splitIndex: '',
       splitArray: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-      loading: false,
-      productValue: undefined,
-      spliceValue: undefined
+      loading: false
     }
   },
   computed: {

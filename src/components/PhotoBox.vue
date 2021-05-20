@@ -2,7 +2,7 @@
   <div class="photo-box">
     <el-image :src="src" fit="contain">
       <div slot="error" class="image-slot">
-        <i class="el-icon-picture-outline"></i>
+        <i class="err-icon el-icon-picture-outline"></i>
         <div class="err-desc">网络加载错误</div>
       </div>
     </el-image>
@@ -82,14 +82,34 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .photo-box {
   width: 100%;
   height: 100%;
 
   .el-image {
-    width: 232px;
-    height: 248px;
+    width: 100%;
+    height: 100%;
+
+    .err-icon {
+      font-size: 40px;
+      color: rgb(218, 214, 214);
+    }
+
+    .image-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+
+      .err-desc {
+        margin-top: 16px;
+        font-size: 16px;
+        color: rgb(218, 214, 214);
+      }
+    }
   }
 }
 </style>

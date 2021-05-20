@@ -3,43 +3,60 @@
     <el-row class="search">
       <el-col :span="8" class="date">
         <span class="tip">选择状态: </span>
-        <el-select v-model="selectValue" default-value="" style="width: 50%;">
-          <el-option value="not_pass">全部</el-option>
-          <el-option value="wait_review">待审核</el-option>
-          <el-option value="refuse">审核拒绝</el-option>
+        <el-select size="small" v-model="selectValue" style="width: 50%;">
+          <el-option value="not_pass" label="全部" />
+          <el-option value="wait_review" label="待审核" />
+          <el-option value="refuse" label="审核拒绝" />
         </el-select>
       </el-col>
       <el-col :span="1" style="text-align: right;">
-        <el-button type="primary" @click="searchProduct(1)">查 询</el-button>
+        <el-button size="small" type="primary" @click="searchProduct(1)">查 询</el-button>
       </el-col>
     </el-row>
-    <el-table
-      class="table"
-      :columns="columns"
-      :data-source="dataSource"
-      :row-key="bindKey"
-      :pagination="false"
-      :loading="loading"
-    >
-      <span slot="status" slot-scope="record">
-        <span>{{ stateText[record.state] }}</span>
-      </span>
-      <span slot="action" slot-scope="record">
-        <div>
-          <span v-if="record.state === 'refuse'" class="cancel">
-            <a href="javascript:;" @click="resubmit(record)">重新提交</a>
-            <el-divider direction="vertical" />
-          </span>
-          <a href="javascript:;" @click="viewDetail(record)">详情</a>
-        </div>
-      </span>
+    <el-table class="table" v-loading="loading" :data="dataSource">
+      <el-table-column
+        header-align="left"
+        align="left"
+        prop="name"
+        label="产品名称"
+      />
+      <el-table-column
+        header-align="left"
+        align="left"
+        prop="created_at"
+        label="生成时间"
+      />
+      <el-table-column header-align="left" align="left" label="审核状态">
+        <span slot-scope="{ row }">
+          <span>{{ stateText[row.state] }}</span>
+        </span>
+      </el-table-column>
+      <el-table-column
+        header-align="left"
+        align="left"
+        prop="refuse_reason"
+        label="拒绝原因"
+      />
+      <el-table-column header-align="left" align="left" label="操作">
+        <span slot-scope="{ row }">
+          <div>
+            <span v-if="row.state === 'refuse'" class="cancel">
+              <a href="javascript:;" style="text-decoration: none;" @click="resubmit(row)">重新提交</a>
+              <el-divider direction="vertical" />
+            </span>
+            <a href="javascript:;" style="text-decoration: none;" @click="viewDetail(row)">详情</a>
+          </div>
+        </span>
+      </el-table-column>
     </el-table>
-    <el-pagination
-      v-model="page.index"
-      class="pagination"
-      :total="page.total"
-      @change="onPageChange"
-    />
+    <div class="page-box">
+      <el-pagination
+        :current-page.sync="page.index"
+        class="pagination"
+        :total="page.total"
+        @current-change="onPageChange"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -49,32 +66,6 @@ export default {
   data () {
     return {
       dataSource: [],
-      columns: [{
-        title: '产品名称',
-        dataIndex: 'name',
-        width: 300,
-        align: 'left'
-      }, {
-        title: '生成时间',
-        dataIndex: 'created_at',
-        width: 300,
-        align: 'left'
-      }, {
-        title: '审核状态',
-        scopedSlots: { customRender: 'status' },
-        width: 200,
-        align: 'left'
-      }, {
-        title: '拒绝原因',
-        dataIndex: 'refuse_reason',
-        width: 200,
-        align: 'left'
-      }, {
-        title: '操作',
-        scopedSlots: { customRender: 'action' },
-        width: 200,
-        align: 'right'
-      }],
       stateText: {
         wait_review: '等待审核',
         refuse: '审核拒绝'
@@ -121,7 +112,7 @@ export default {
     viewDetail (record) {
       this.$router.push({
         name: 'productDetail',
-        params: { id: record.id, type: 'notpass' }
+        query: { id: record.id, type: 'notpass' }
       })
     },
     /**
