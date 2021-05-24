@@ -139,13 +139,6 @@ export default {
   methods: {
     ...mapActions(['initUpyun']),
     /**
-     * @description 更改图片地址
-     */
-    changeImagePath (url) {
-      const imgPath = this.getHost + url + this.$cutDown
-      return imgPath
-    },
-    /**
      * @description 监听产品变化
      */
     onProductChange (fileItem) {

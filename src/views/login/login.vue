@@ -16,7 +16,7 @@
           <el-input v-model="ruleForm.username" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="ruleForm.password" prefix-icon="el-icon-lock"></el-input>
+          <el-input v-model="ruleForm.password" prefix-icon="el-icon-lock" show-password></el-input>
         </el-form-item>
         <el-button type="primary" class="login-button" @click="submitForm">登 录</el-button>
       </el-form>

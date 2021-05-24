@@ -155,9 +155,6 @@ export default {
     this.searchOrder()
   },
   methods: {
-    bindKey (record, index) {
-      return index
-    },
     hasRetouchStream (streamNums) {
       for (const stream of streamNums) {
         if (stream.state === 'wait_retouch') {
@@ -172,7 +169,7 @@ export default {
         orderNum: record.order_num
       }).then(() => {
         this.searchOrder()
-        this.$message.success('订单撤回成功', 2)
+        this.$message.success('订单撤回成功')
       }).finally(() => {
         this.loading = false
       })

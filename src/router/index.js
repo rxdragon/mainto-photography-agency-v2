@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const home = () => import('@/views/home.vue')
+const home = () => import('@/views/home/home.vue')
 const uploadPhoto = () => import('@/views/photo-upload/photoUpload.vue')
 const uploadRecord = () => import('@/views/photo-upload/record.vue')
 const recordDetail = () => import('@/views/photo-upload/recordDetail.vue')
@@ -15,97 +15,98 @@ const customDetail = () => import('@/views/custom/customDetail.vue')
 
 Vue.use(Router)
 
-export const routes = [{
-  path: '/',
-  component: home,
-  meta: {
-    showButton: false
+export const routes = [
+  {
+    path: '/',
+    component: home,
+    meta: {
+      showButton: false
+    }
+  },
+  {
+    path: '/uploadPhoto',
+    name: 'uploadPhoto',
+    component: uploadPhoto,
+    meta: {
+      showButton: false
+    }
+  },
+  {
+    path: '/uploadRecord',
+    name: 'uploadRecord',
+    component: uploadRecord,
+    meta: {
+      showButton: false
+    }
+  },
+  {
+    path: '/recordDetail',
+    name: 'recordDetail',
+    component: recordDetail,
+    meta: {
+      showButton: true
+    }
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: product,
+    meta: {
+      showButton: false
+    }
+  },
+  {
+    path: '/productDetail',
+    name: 'productDetail',
+    component: productDetail,
+    meta: {
+      showButton: true
+    }
+  },
+  {
+    path: '/addProduct',
+    name: 'addProduct',
+    component: addProduct,
+    meta: {
+      showButton: true
+    }
+  },
+  {
+    path: '/manage',
+    name: 'manage',
+    component: manage,
+    meta: {
+      showButton: false
+    }
+  },
+  {
+    path: '/manageAccount',
+    name: 'manageAccount',
+    component: manageAccount,
+    meta: {
+      showButton: true
+    }
+  },
+  {
+    path: '/customs',
+    name: 'customs',
+    component: custom,
+    meta: {
+      showButton: false
+    }
+  },
+  {
+    path: '/customDetail',
+    name: 'customDetail',
+    component: customDetail,
+    meta: {
+      showButton: true
+    }
+  },
+  {
+    path: '*',
+    component: home
   }
-},
-{
-  path: '/uploadPhoto',
-  name: 'uploadPhoto',
-  component: uploadPhoto,
-  meta: {
-    showButton: false
-  }
-},
-{
-  path: '/uploadRecord',
-  name: 'uploadRecord',
-  component: uploadRecord,
-  meta: {
-    showButton: false
-  }
-},
-{
-  path: '/recordDetail',
-  name: 'recordDetail',
-  component: recordDetail,
-  meta: {
-    showButton: true
-  }
-},
-{
-  path: '/product',
-  name: 'product',
-  component: product,
-  meta: {
-    showButton: false
-  }
-},
-{
-  path: '/productDetail',
-  name: 'productDetail',
-  component: productDetail,
-  meta: {
-    showButton: true
-  }
-},
-{
-  path: '/addProduct',
-  name: 'addProduct',
-  component: addProduct,
-  meta: {
-    showButton: true
-  }
-},
-{
-  path: '/manage',
-  name: 'manage',
-  component: manage,
-  meta: {
-    showButton: false
-  }
-},
-{
-  path: '/manageAccount',
-  name: 'manageAccount',
-  component: manageAccount,
-  meta: {
-    showButton: true
-  }
-},
-{
-  path: '/customs',
-  name: 'customs',
-  component: custom,
-  meta: {
-    showButton: false
-  }
-},
-{
-  path: '/customDetail',
-  name: 'customDetail',
-  component: customDetail,
-  meta: {
-    showButton: true
-  }
-},
-{
-  path: '*',
-  component: home
-}
 ]
 
 export default new Router({ routes })

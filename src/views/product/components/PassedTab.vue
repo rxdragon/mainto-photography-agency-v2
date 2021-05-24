@@ -122,9 +122,6 @@ export default {
     this.searchProduct()
   },
   methods: {
-    disabledDate (current) {
-      return current && current > moment().endOf('day')
-    },
     viewDetail (record) {
       this.$router.push({
         name: 'productDetail',

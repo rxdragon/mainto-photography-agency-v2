@@ -28,20 +28,21 @@
           <span slot-scope="{ row }">
             <div>
               <div v-if="row.state === 'disabled'" class="button-group">
-                <a href="javascript:;" style="color: #52c41a;" @click="enableSubuser(row)">启 用</a>
+                <a href="javascript:;" style="color: #52c41a; text-decoration: none;" @click="enableSubuser(row)">启 用</a>
                 <el-divider direction="vertical" />
               </div>
               <div v-else-if="row.state === 'enabled'" class="button-group">
-                <a
-                  href="javascript:;"
-                  style="color: #f5222d;"
-                  ghost
-                  @click="disableSubuser(row)"
-                >禁 用
+                <a href="javascript:;" style="color: #f5222d; text-decoration: none;" @click="disableSubuser(row)">禁 用
                 </a>
                 <el-divider direction="vertical" />
               </div>
-              <a href="javascript:;" class="edit" @click="reviewDetail(row)">编 辑</a>
+              <a
+                href="javascript:;"
+                class="edit"
+                style="text-decoration: none;"
+                @click="reviewDetail(row)"
+              >编 辑
+              </a>
             </div>
           </span>
         </el-table-column>
@@ -136,7 +137,7 @@ export default {
         id: record.id
       }).then(() => {
         this.searchSubuser()
-        this.$message.success('账号禁用成功', 2)
+        this.$message.success('账号禁用成功')
       }).catch((e) => {
         this.$message.error(e.data.error_msg)
       }).finally(() => {
@@ -149,7 +150,7 @@ export default {
         id: record.id
       }).then(() => {
         this.searchSubuser()
-        this.$message.success('账号启用成功', 2)
+        this.$message.success('账号启用成功')
       }).catch((e) => {
         this.$message.error(e.data.error_msg)
       }).finally(() => {

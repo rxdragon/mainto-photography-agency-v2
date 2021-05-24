@@ -43,6 +43,7 @@
                 <el-alert
                   :title="`${item.product} (流水号: ${item.stream_num}) `"
                   type="info"
+                  :closable="false"
                   :style="{ textAlign: 'left', marginBottom: '24px', backgroundColor: '#e6f7ff', border: '1px solid #91d5ff'}"
                 />
               </div>
@@ -141,14 +142,6 @@ export default {
     download (url) {
       window.location = `${url}?attname=`
     },
-    showModel (url) {
-      this.previewImage = `${this.getHost}${url}`
-      this.previewVisible = true
-    },
-    resetPreviewImage () {
-      this.previewVisible = false
-      this.previewImage = ''
-    },
     reviewOrder () {
       this.loading = true
       Api.work.detail({
@@ -156,7 +149,8 @@ export default {
       }).then((res) => {
         this.order = res.msg
       }).catch((e) => {
-        this.$message.error(e.data.error_msg, 1, this.routeBack)
+        this.$message.error(e.data.error_msg)
+        this.routeBack()
       }).finally(() => {
         this.loading = false
       })

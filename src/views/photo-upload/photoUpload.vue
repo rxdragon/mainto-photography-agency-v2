@@ -10,7 +10,6 @@
           description="1、若要进行照片拼接，需选择标签对照片标记；如标签“拼接A”先后标记了照片1、2，则表示这两张照片需先后被拼接在一起"
           type="info"
           closable
-          :after-close="handleClose"
           :style="{textAlign: 'left', marginBottom: '24px', backgroundColor: '#e6f7ff', border: '1px solid #91d5ff'}"
         />
         <Upload ref="uploadChild" @loading="sendLoding" @sendPhotos="getPhotos" />

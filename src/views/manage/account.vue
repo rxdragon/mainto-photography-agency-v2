@@ -10,9 +10,9 @@
             size="small"
             :addon-before="`${getUser.config.orgCode}: `"
             placeholder="请填写账号"
-            v-model="account.username"
+            :value="account.username"
             :max-length="16"
-            @change="userChange"
+            @input="userChange"
           >
             <template slot="prepend">tx:</template>
           </el-input>
@@ -25,12 +25,11 @@
         <el-col :span="6">
           <el-input
             size="small"
-            type="text"
             placeholder="未有特殊密码要求可不用填写"
-            v-model="account.password"
+            :value="account.password"
             :max-length="16"
             show-password
-            @change="passChange"
+            @input="passChange"
           />
         </el-col>
       </el-row>
@@ -84,18 +83,16 @@ export default {
     }
   },
   methods: {
-    userChange (e) {
-      const { value } = e.target
+    userChange (val) {
       const reg = /^[0-9a-zA-Z]*$/g
-      if (reg.test(value) || value === '' || value === '-') {
-        this.account.username = value
+      if (reg.test(val) || val === '' || val === '-') {
+        this.account.username = val
       }
     },
-    passChange (e) {
-      const { value } = e.target
+    passChange (val) {
       const reg = /^[0-9a-zA-Z]*$/g
-      if (reg.test(value) || value === '' || value === '-') {
-        this.account.password = value
+      if (reg.test(val) || val === '' || val === '-') {
+        this.account.password = val
       }
     },
     submit () {
@@ -110,7 +107,8 @@ export default {
       }
       if (!this.hasQuery) {
         Api.manage.create(this.account).then(() => {
-          this.$message.success('账号创建成功', 1, this.routeBack)
+          this.$message.success('账号创建成功')
+          this.routeBack()
         }).catch((e) => {
           this.$message.error(e.data.error_msg)
         }).finally(() => {
@@ -118,7 +116,8 @@ export default {
         })
       } else {
         Api.manage.edit(this.account).then(() => {
-          this.$message.success('账号修改成功', 1, this.routeBack)
+          this.$message.success('账号修改成功')
+          this.routeBack()
         }).catch((e) => {
           this.$message.error(e.data.error_msg)
         }).finally(() => {

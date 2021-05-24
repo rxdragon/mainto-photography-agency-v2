@@ -40,9 +40,6 @@ export default {
     }
   },
   methods: {
-    handleErrorImg () {
-      this.isError = true
-    },
     handleCompressImg (src) {
       // 线上环境存储目录
       const prodFilePath = 'upload/'

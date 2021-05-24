@@ -95,9 +95,6 @@ export default {
     this.searchProduct()
   },
   methods: {
-    bindKey (record, index) {
-      return index
-    },
     resubmit (record) {
       this.$router.push({
         name: 'addProduct',

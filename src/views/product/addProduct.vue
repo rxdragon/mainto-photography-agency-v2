@@ -62,6 +62,7 @@
                 :before-upload="checkFile"
                 :on-progress="handleProgress"
                 :on-success="handleSuccess"
+                :on-error="handleError"
               >
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -147,15 +148,9 @@ export default {
   },
   methods: {
     ...mapActions(['initUpyun']),
-    handlePreview (file) {
-      this.previewImage = file.url || file.thumbUrl
-      this.previewVisible = true
-    },
-    handleChange ({ file, fileList }) {
-      this.fileList = fileList
-      if (file.status === 'error') {
-        return this.$message.error('upyun 上传异常')
-      }
+    handleError (err, file, fileList) {
+      console.error(err)
+      return this.$message.error('upyun 上传异常')
     },
     sumbitAdd () {
       if (!this.product.name || !this.product.standard || !this.fileList.length) {
@@ -191,23 +186,6 @@ export default {
           url: `${this.getHost}${item}`
         })
       })
-    },
-    /**
-     * @description 更改图片地址
-     */
-    changeImagePath (url) {
-      const imgPath = this.getHost + url + this.$cutDown
-      return imgPath
-    },
-    /**
-     * @description 监听产品变化
-     */
-    onProductChange (fileItem) {
-      const isSplitProduct = this.needSplit(fileItem)
-      if (!isSplitProduct) {
-        fileItem.splice_mark = null
-        fileItem.splice_position = null
-      }
     },
     /**
      * @description 上传前生命周期
@@ -249,34 +227,10 @@ export default {
         }
       })
     },
-    getChildPhotos () {
-      const isFinish = this.fileList.every(photoItem => photoItem.sha1)
-      if (!isFinish) {
-        this.$message.error('未上传完毕')
-        return false
-      }
-      this.$emit('sendPhotos', this.fileList)
-      return true
-    },
-    needSplit (item) {
-      const selectId = item.product_id || 0
-      const proList = this.productList.msg
-      for (const option of proList) {
-        const matchId = option.cloud_product_id === selectId
-        const needSplicing = option.need_splicing > 0
-        if (matchId && needSplicing) {
-          return true
-        }
-      }
-      return false
-    },
     deletePicture (picture, index) {
       this.fileList.splice(index, 1)
       const idx = this.shaList.indexOf(picture.sha1)
       this.shaList.splice(idx, 1)
-    },
-    resetshaList () {
-      this.shaList = []
     },
     previewPicture (url) {
       this.previewImage = `${this.getHost}${url}`
