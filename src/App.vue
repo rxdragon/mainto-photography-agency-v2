@@ -11,7 +11,7 @@
         </el-main>
       </el-container>
     </el-container>
-    <Welcome v-else/>
+    <Login v-else/>
   </div>
 </template>
 
@@ -19,10 +19,10 @@
 import Header from '@/layout/Header.vue'
 import Sider from '@/layout/Sider.vue'
 import { mapActions, mapGetters } from 'vuex'
-import Welcome from '@/views/welcome/index.vue'
+import Login from '@/views/login/login.vue'
 export default {
   name: 'app',
-  components: { Header, Sider, Welcome },
+  components: { Header, Sider, Login },
   data () {
     return {
       loading: false,

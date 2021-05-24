@@ -18,9 +18,16 @@
       </el-col>
     </el-row>
     <el-table v-loading="loading" :data="dataSource">
-      <el-table-column label="产品名称" prop="name" />
-      <el-table-column label="审核通过时间" prop="review_pass_at" />
-      <el-table-column label="状态">
+      <el-table-column
+        v-for="(item, index) in colInfo"
+        :key="index"
+        :align="item.align"
+        :header-align="item.align"
+        :label="item.label"
+        :min-width="item.width"
+        :prop="item.prop"
+      />
+      <el-table-column label="状态" min-width="40%">
         <span slot-scope="{ row }">
           <span>
             <el-badge
@@ -32,7 +39,7 @@
           </span>
         </span>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" min-width="50%">
         <span slot-scope="{ row }">
           <div>
             <span v-if="row.state === 'enable'">
@@ -68,6 +75,17 @@ export default {
   data () {
     return {
       itemKey: '',
+      colInfo: [{
+        label: '产品名称',
+        prop: 'name',
+        width: '40%',
+        align: 'left'
+      }, {
+        label: '审核通过时间',
+        prop: 'review_pass_at',
+        width: '90%',
+        align: 'left'
+      }],
       pickerOptions: {
         disabledDate (current) {
           return current && current > moment().endOf('day')

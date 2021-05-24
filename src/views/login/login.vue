@@ -28,6 +28,7 @@
 import Api from '@/api/index.js'
 import { mapActions } from 'vuex'
 export default {
+  name: 'Login',
   data () {
     return {
       logo: require('@/assets/img/single-logo.png'),
@@ -88,5 +89,5 @@ export default {
 </script>
 
 <style lang="less">
-@import './style/index.less';
+@import './style/login.less';
 </style>

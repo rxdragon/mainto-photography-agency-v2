@@ -18,6 +18,7 @@
         <div class="search-item" >
           <span class="tip">订单标题: </span>
           <el-input
+            clearable
             size="small"
             v-model="search.title"
             placeholder="请输入订单标题"
@@ -27,6 +28,7 @@
         <div class="search-item" >
           <span class="tip">顾客姓名: </span>
           <el-input
+            clearable
             size="small"
             v-model="search.customerName"
             placeholder="请输入顾客姓名"
@@ -40,18 +42,23 @@
       <div class="table">
         <template>
           <el-table v-loading="loading" :data="data">
-            <el-table-column label="订单标题" prop="title" />
-            <el-table-column label="订单号" prop="order_num" />
-            <el-table-column label="顾客姓名" prop="clientName" />
-            <el-table-column label="上传时间" prop="created_at" />
-            <el-table-column label="流水号">
+            <el-table-column
+              v-for="(item, index) in colInfo"
+              :key="index"
+              :header-align="item.align"
+              :align="item.align"
+              :min-width="item.width"
+              :label="item.label"
+              :prop="item.prop"
+            />
+            <el-table-column label="流水号" min-width="90%">
               <span slot-scope="{ row }">
                 <p v-for="(item, index) in row.stream_nums" :key="index">
                   {{ `${item.stream_num} (${transText[item.state] || '状态未知'})` }}
                 </p>
               </span>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" min-width="40%">
               <span slot-scope="{ row }">
                 <span v-if="hasRetouchStream(row.stream_nums)" class="cancel">
                   <a href="javascript:;" @click="cancelOrder(row)" style="text-decoration: none;">撤回</a>
@@ -83,6 +90,27 @@ export default {
   data () {
     return {
       data: [],
+      colInfo: [{
+        label: '订单标题',
+        prop: 'title',
+        width: '40%',
+        align: 'left'
+      }, {
+        label: '订单号',
+        prop: 'order_num',
+        width: '70%',
+        align: 'left'
+      }, {
+        label: '顾客姓名',
+        prop: 'clientName',
+        width: '40%',
+        align: 'left'
+      }, {
+        label: '上传时间',
+        prop: 'created_at',
+        width: '70%',
+        align: 'left'
+      }],
       transText: {
         wait_retouch: '等待修片',
         finish: '云端修图完成',

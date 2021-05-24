@@ -236,5 +236,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '../styles/index.less';
+@import '../styles/photoUpload.less';
 </style>

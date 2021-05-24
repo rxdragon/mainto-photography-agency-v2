@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const deafault = () => import('@/views/home.vue')
+const home = () => import('@/views/home.vue')
 const uploadPhoto = () => import('@/views/photo-upload/photoUpload.vue')
 const uploadRecord = () => import('@/views/photo-upload/record.vue')
 const recordDetail = () => import('@/views/photo-upload/recordDetail.vue')
@@ -11,13 +11,13 @@ const addProduct = () => import('@/views/product/addProduct.vue')
 const manage = () => import('@/views/manage/manage.vue')
 const manageAccount = () => import('@/views/manage/account.vue')
 const custom = () => import('@/views/custom/custom.vue')
-const customDetail = () => import('@/views/custom/detail.vue')
+const customDetail = () => import('@/views/custom/customDetail.vue')
 
 Vue.use(Router)
 
 export const routes = [{
   path: '/',
-  component: deafault,
+  component: home,
   meta: {
     showButton: false
   }
@@ -104,7 +104,7 @@ export const routes = [{
 },
 {
   path: '*',
-  component: deafault
+  component: home
 }
 ]
 

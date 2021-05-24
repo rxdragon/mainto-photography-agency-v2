@@ -317,7 +317,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import './styles/index.less';
+@import './styles/photoUpload.less';
 
 .footer {
   user-select: none;

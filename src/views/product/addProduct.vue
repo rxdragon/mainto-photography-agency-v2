@@ -28,7 +28,7 @@
           <div class="tip"><b>*</b> 样片素材: </div>
         </el-col>
         <el-col :span="21">
-          <div id="upload">
+          <div class="upload">
             <ul class="el-upload-list el-upload-list--picture-card">
               <li v-for="(item, index) in fileList" :key="item.sha1" class="list-wrap">
                 <div class="el-upload-list__item is-success">

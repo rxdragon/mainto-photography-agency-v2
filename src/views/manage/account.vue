@@ -7,12 +7,15 @@
         </el-col>
         <el-col :span="7">
           <el-input
+            size="small"
             :addon-before="`${getUser.config.orgCode}: `"
             placeholder="请填写账号"
-            :value="account.username"
+            v-model="account.username"
             :max-length="16"
             @change="userChange"
-          />
+          >
+            <template slot="prepend">tx:</template>
+          </el-input>
         </el-col>
       </el-row>
       <el-row class="item">
@@ -21,10 +24,12 @@
         </el-col>
         <el-col :span="6">
           <el-input
+            size="small"
             type="text"
             placeholder="未有特殊密码要求可不用填写"
-            :value="account.password"
+            v-model="account.password"
             :max-length="16"
+            show-password
             @change="passChange"
           />
         </el-col>
@@ -34,12 +39,12 @@
           <span class="tip name">账号昵称: </span>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="account.nick" placeholder="请填写昵称" />
+          <el-input size="small" v-model="account.nick" placeholder="请填写昵称" />
         </el-col>
       </el-row>
       <el-row class="item">
         <el-col :span="6" :offset="2">
-          <el-button type="primary" @click="submit">提 交</el-button>
+          <el-button size="small" type="primary" @click="submit">提 交</el-button>
         </el-col>
       </el-row>
     </el-row>

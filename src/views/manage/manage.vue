@@ -1,43 +1,60 @@
 <template>
   <div id="manage">
-    <el-button class="add-btn" type="primary" @click="routeView('/manageAccount')">添加子账号</el-button>
+    <el-button
+      size="small"
+      class="add-btn"
+      type="primary"
+      @click="routeView('/manageAccount')"
+    >
+      添加子账号
+    </el-button>
     <el-row class="table">
-      <el-table
-        :row-key="bindKey"
-        :loading="loading"
-        :columns="columns"
-        :data-source="dataSource"
-        :pagination="false"
-      >
-        <span slot="state" slot-scope="record">
-          {{ stateText[record.state] }}
-        </span>
-        <span slot="action" slot-scope="record">
-          <div>
-            <div v-if="record.state === 'disabled'" class="button-group">
-              <a href="javascript:;" style="color: #52c41a;" @click="enableSubuser(record)">启 用</a>
-              <el-divider direction="vertical" />
+      <el-table v-loading="loading" :data="dataSource">
+        <el-table-column
+          v-for="(item, index) in colInfo"
+          :key="index"
+          :align="item.align"
+          :header-align="item.align"
+          :label="item.label"
+          :min-width="item.width"
+          :prop="item.prop"
+        />
+        <el-table-column label="状态" min-width="40%">
+          <span slot-scope="{ row }">
+            {{ stateText[row.state] }}
+          </span>
+        </el-table-column>
+        <el-table-column label="操作" min-width="40%">
+          <span slot-scope="{ row }">
+            <div>
+              <div v-if="row.state === 'disabled'" class="button-group">
+                <a href="javascript:;" style="color: #52c41a;" @click="enableSubuser(row)">启 用</a>
+                <el-divider direction="vertical" />
+              </div>
+              <div v-else-if="row.state === 'enabled'" class="button-group">
+                <a
+                  href="javascript:;"
+                  style="color: #f5222d;"
+                  ghost
+                  @click="disableSubuser(row)"
+                >禁 用
+                </a>
+                <el-divider direction="vertical" />
+              </div>
+              <a href="javascript:;" class="edit" @click="reviewDetail(row)">编 辑</a>
             </div>
-            <div v-else-if="record.state === 'enabled'" class="button-group">
-              <a
-                href="javascript:;"
-                style="color: #f5222d;"
-                ghost
-                @click="disableSubuser(record)"
-              >禁 用
-              </a>
-              <el-divider direction="vertical" />
-            </div>
-            <a href="javascript:;" class="edit" @click="reviewDetail(record)">编 辑</a>
-          </div>
-        </span>
+          </span>
+        </el-table-column>
       </el-table>
-      <el-pagination
-        v-model="page.index"
-        class="pagination"
-        :total="page.total"
-        @change="pageChange"
-      />
+      <div class="page-box">
+        <el-pagination
+          :current-page.sync="page.index"
+          :total="page.total"
+          @current-change="pageChange"
+          class="pagination"
+          layout="prev, pager, next"
+        />
+      </div>
     </el-row>
   </div>
 </template>
@@ -53,31 +70,21 @@ export default {
         disabled: '禁用'
       },
       loading: false,
-      columns: [{
-        title: '账号',
-        dataIndex: 'username',
-        width: 300,
+      colInfo: [{
+        label: '账号',
+        prop: 'username',
+        width: '40%',
         align: 'left'
       }, {
-        title: '摄影师姓名',
-        dataIndex: 'nick',
-        width: 300,
+        label: '摄影师姓名',
+        prop: 'nick',
+        width: '40%',
         align: 'left'
       }, {
-        title: '创建时间',
-        dataIndex: 'created_at',
-        width: 200,
+        label: '创建时间',
+        prop: 'created_at',
+        width: '70%',
         align: 'left'
-      }, {
-        title: '状态',
-        scopedSlots: { customRender: 'state' },
-        width: 200,
-        align: 'left'
-      }, {
-        title: '操作',
-        scopedSlots: { customRender: 'action' },
-        width: 200,
-        align: 'right'
       }],
       page: {
         size: 10,
@@ -161,5 +168,5 @@ export default {
 }
 </script>
 <style lang="less">
-@import './styles/index.less';
+@import './styles/manage.less';
 </style>
