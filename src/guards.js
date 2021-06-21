@@ -1,9 +1,8 @@
 import router from './router'
 import store from './store'
 import getPageTitle from '@/utils/getPageTitle' // 获取页面title
-import { getXStreamId, getStreamIdExpireTime } from '@/utils/sessionTool' // get token from cookie
+import { getXStreamId } from '@/utils/sessionTool' // get token from cookie
 import * as User from '@/api/user.js'
-import '@assetsDir/styles/nprogress.less' // 进度条颜色
 
 const whiteList = ['/', '/login', '/auth-redirect', '/401', '/404'] // 白名单
 
@@ -27,7 +26,7 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   }
-
+  
   function goLogin () {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
@@ -35,10 +34,10 @@ router.beforeEach(async (to, from, next) => {
       next(`/login?redirect=${to.path}`)
     }
   }
-
+  
   if (hasXStreamId) {
     // 下次的过期时间
-    const expireTime = getStreamIdExpireTime() * 1000
+    const expireTime = new Date().getTime() + 24 * 60 * 60 * 1000
     const nowTime = new Date().getTime()
     const discrepancyTime = expireTime - nowTime
     if (discrepancyTime > 0) {

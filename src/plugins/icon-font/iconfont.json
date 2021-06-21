@@ -1,0 +1,51 @@
+{
+  "id": "1805409",
+  "name": "修修兽后台",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14769783",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "14548715",
+      "name": "export",
+      "font_class": "export",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "14548699",
+      "name": "财务中心",
+      "font_class": "caiwuzhongxin",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "14548700",
+      "name": "订单管理",
+      "font_class": "dingdanguanli",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "14548701",
+      "name": "用户管理",
+      "font_class": "yonghuguanli",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "14548702",
+      "name": "概览",
+      "font_class": "gailan",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    }
+  ]
+}

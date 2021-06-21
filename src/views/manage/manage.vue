@@ -108,6 +108,7 @@ export default {
         query: {
           id: record.id,
           username: record.username,
+          password: record.password,
           nick: record.nick
         }
       })

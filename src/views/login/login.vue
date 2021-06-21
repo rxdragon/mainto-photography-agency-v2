@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import Api from '@/api/index.js'
+import * as User from '@/api/user.js'
+import store from '@/store'
 import { mapActions } from 'vuex'
 export default {
   name: 'Login',
@@ -62,18 +63,19 @@ export default {
         captcha.show()
       })
     },
-    getAuthLogin (captcha) {
+    async getAuthLogin (captcha) {
       const params = {
         username: this.ruleForm.username,
         password: this.ruleForm.password,
         ...captcha
       }
       this.loading = true
-      Api.user.loginAuth(params, {
+      await store.dispatch('setSteamId', '')
+      User.login(params, {
         headers: { 'X-Expose-Headers': 'X-Stream-Id, x-stream-id' }
       }).then(() => {
         this.$router.replace({ path: '/' })
-        Api.user.getInfo().then((res) => {
+        User.getInfo().then((res) => {
           this.setUserInfo(res.msg)
         }).catch((e) => {
           this.$message.error(e.data.error_msg)

@@ -1,112 +1,119 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '@/layout/Layout.vue' // 产品中心
 
-const home = () => import('@/views/home/home.vue')
-const uploadPhoto = () => import('@/views/photo-upload/photoUpload.vue')
-const uploadRecord = () => import('@/views/photo-upload/record.vue')
-const recordDetail = () => import('@/views/photo-upload/recordDetail.vue')
-const product = () => import('@/views/product/product.vue')
-const productDetail = () => import('@/views/product/productDetail.vue')
-const addProduct = () => import('@/views/product/addProduct.vue')
-const manage = () => import('@/views/manage/manage.vue')
-const manageAccount = () => import('@/views/manage/account.vue')
-const custom = () => import('@/views/custom/custom.vue')
-const customDetail = () => import('@/views/custom/customDetail.vue')
+import manageCenter from './modules/manageCenter.js' // 订单管理
+import productManagement from './modules/productManagement.js'
 
-Vue.use(Router)
+Vue.use(Router) // 订单管理
 
-export const routes = [
+// 基础权限路由
+export const constantRoutes = [
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path*',
+        component: () => import('@/views/redirect/redirect.vue')
+      }
+    ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/login.vue'),
+    hidden: true
+  },
   {
     path: '/',
-    component: home,
-    meta: {
-      showButton: false
-    }
+    component: Layout,
+    redirect: '/home',
+    children: [
+      {
+        path: 'home',
+        name: 'Home',
+        component: () => import('@/views/home/home.vue'),
+        meta: { title: '首页', icon: 'iconfont icongailan' }
+      }
+    ]
   },
   {
-    path: '/uploadPhoto',
-    name: 'uploadPhoto',
-    component: uploadPhoto,
-    meta: {
-      showButton: false
-    }
+    path: '/photo_upload',
+    component: Layout,
+    redirect: '/photo_upload/upload_photo',
+    meta: { title: '照片上传', icon: '' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'upload_photo',
+        name: 'photoUpload',
+        component: () => import('@/views/photo_upload/photoUpload.vue'),
+        meta: { title: '上传照片', icon: '' }
+      },
+      {
+        path: 'upload_record',
+        name: 'uploadRecord',
+        component: () => import('@/views/photo_upload/uploadRecord.vue'),
+        meta: { title: '上传历史记录', icon: '' }
+      },
+      {
+        path: 'record_detail',
+        name: 'recordDetail',
+        component: () => import('@/views/photo_upload/recordDetail.vue'),
+        meta: { title: '历史详情', icon: '' },
+        hidden: true
+      }
+    ]
   },
   {
-    path: '/uploadRecord',
-    name: 'uploadRecord',
-    component: uploadRecord,
-    meta: {
-      showButton: false
-    }
+    path: '/custom',
+    component: Layout,
+    redirect: '/custom/custom',
+    children: [
+      {
+        path: 'custom',
+        name: 'Custom',
+        component: () => import('@/views/custom/custom.vue'),
+        meta: { title: '客片中心', icon: '' }
+      },
+      {
+        path: 'custom_detail',
+        name: 'customDetail',
+        component: () => import('@/views/custom/customDetail.vue'),
+        meta: { title: '客片详情', icon: '' },
+        hidden: true
+      }
+    ]
   },
   {
-    path: '/recordDetail',
-    name: 'recordDetail',
-    component: recordDetail,
-    meta: {
-      showButton: true
-    }
-  },
-  {
-    path: '/product',
-    name: 'product',
-    component: product,
-    meta: {
-      showButton: false
-    }
-  },
-  {
-    path: '/productDetail',
-    name: 'productDetail',
-    component: productDetail,
-    meta: {
-      showButton: true
-    }
-  },
-  {
-    path: '/addProduct',
-    name: 'addProduct',
-    component: addProduct,
-    meta: {
-      showButton: true
-    }
-  },
-  {
-    path: '/manage',
-    name: 'manage',
-    component: manage,
-    meta: {
-      showButton: false
-    }
-  },
-  {
-    path: '/manageAccount',
-    name: 'manageAccount',
-    component: manageAccount,
-    meta: {
-      showButton: true
-    }
-  },
-  {
-    path: '/customs',
-    name: 'customs',
-    component: custom,
-    meta: {
-      showButton: false
-    }
-  },
-  {
-    path: '/customDetail',
-    name: 'customDetail',
-    component: customDetail,
-    meta: {
-      showButton: true
-    }
+    path: '/401',
+    component: () => import('@/views/error-page/401.vue'),
+    hidden: true
   },
   {
     path: '*',
-    component: home
+    component: () => import('@/views/error-page/404.vue'),
+    hidden: true
   }
 ]
 
-export default new Router({ routes })
+export const asyncRoutes = [
+  manageCenter,
+  productManagement
+]
+
+const createRouter = () => new Router({
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRoutes
+})
+
+const router = createRouter()
+
+// url不变强制刷行
+export function resetRouter () {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher
+}
+
+export default router

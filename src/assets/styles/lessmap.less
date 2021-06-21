@@ -1,0 +1,33 @@
+@home: url(~@assetsDir/images/home.png);
+@logo: url(~@assetsDir/images/logo.png);
+@share-logo: url(~@assetsDir/images/share-logo.png);
+
+.iconmapBaseSet(@x, @y) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-image: @iconMap;
+  background-position: @x @y;
+  background-size: 660px 260px;
+}
+
+.home-logo {
+  background-image: @home;
+  background-position: 0 0;
+  background-size: 568px;
+}
+
+.showpic-logo {
+  background-image: @logo;
+  background-position: 0 0;
+  background-size: 200px;
+}
+
+.share-logo {
+  width: 50px;
+  height: 50px;
+  background-image: @share-logo;
+  background-position: 0 0;
+  background-size: 50px;
+}

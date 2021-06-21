@@ -3,6 +3,7 @@
     "baseUrl": "./",
     "paths": {
         "@/*": ["src/*"],
+        "@assetsDir/*": ["src/assets/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

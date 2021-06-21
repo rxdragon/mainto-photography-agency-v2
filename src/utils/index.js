@@ -107,3 +107,11 @@ export function toCapitalHump (name) {
     return letter.toUpperCase()
   })
 }
+
+/**
+ * @description 是否为对象
+ */
+export function isObj (obj) {
+  if (!obj) return false
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}

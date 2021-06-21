@@ -1,5 +1,4 @@
 const path = require('path')
-const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, dir)
@@ -22,26 +21,36 @@ module.exports = {
   // 内容安全策略及子资源完整性
   integrity: false,
 
+  
+  configureWebpack: (c) => {
+    const config = {
+      resolve: {
+        alias: {
+          '@': resolve('src'),
+          '@assetsDir': resolve('src/assets')
+        }
+      }
+    }
+    return config
+  },
+
+  chainWebpack: config => {
+    if (config.plugins.has('progress') && process.env.CI_RUNNER_ID) {
+      config.plugins.delete('progress')
+    }
+    config.plugin('define')
+      .tap(args => {
+        args[0].BUILD_TIME = +Date.now()
+        return args
+      })
+  },
+
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
       patterns: [
-        resolve('src/assets/styles/variables.less')
+        '/Volumes/code/mainto-photography-agency-v2/src/assets/styles/variables.less'
       ]
     }
-  },
-
-  configureWebpack: {
-    plugins: [
-      new StyleLintPlugin({
-        configFile: '.stylelintrc.js',
-        files: ['./src/assets/**/*.less', './src/**/*.vue'],
-        formatter: 'verbose',
-        fix: true
-      })
-    ]
-  },
-  chainWebpack: (config) => {
-    config.resolve.alias.set('@', resolve('src'))
   }
 }

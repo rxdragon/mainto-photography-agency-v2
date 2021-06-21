@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../store'
+import * as SessionTool from '@/utils/sessionTool.js'
 import { message } from 'element-ui'
 import { errorCode } from '@/plugins/errorCode'
 const errorHandle = (status) => {
@@ -30,6 +31,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   res => {
     if (res.headers['x-stream-id']) {
+      SessionTool.setXStreamId(res.headers['x-stream-id'])
       store.dispatch('setSteamId', res.headers['x-stream-id'])
     }
     return Promise.resolve(res.data)

@@ -205,7 +205,7 @@ export default {
     },
     viewsDetail (record) {
       this.$router.push({
-        path: 'recordDetail',
+        path: 'record_detail',
         query: { orderNum: record.order_num }
       })
     }
